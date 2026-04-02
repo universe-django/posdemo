@@ -47,7 +47,7 @@ const Layout = () => {
                     <div className="px-1">
                         <img src={pos} alt="" className='h-12 aspect-[2/1]' />
                         <div className="flex gap-1">
-                            <NavLink to='/' className={({ isActive }) => (isActive ? 'border-t-[1px] border-l-[1px] px-1 border-[#4F4F4F] text-xs text-customRed font-semibold' : 'border-t-[1px] border-l-[1px] px-1 border-[#4F4F4F] text-xs text-blue-600')}>Home</NavLink>
+                            <NavLink to='/pos-home' className={({ isActive }) => (isActive ? 'border-t-[1px] border-l-[1px] px-1 border-[#4F4F4F] text-xs text-customRed font-semibold' : 'border-t-[1px] border-l-[1px] px-1 border-[#4F4F4F] text-xs text-blue-600')}>Home</NavLink>
                             {/* System Administration */}
                             {(activeMenu === 'systemadministration') && (
                                 <>
