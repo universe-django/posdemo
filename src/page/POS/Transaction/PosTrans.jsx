@@ -49,7 +49,7 @@ const PosTrans = () => {
                                         </select>
                                     </div>
                                     <div className="mt-6 flex justify-center">
-                                        <p className=' px-2 bg-[#C44C3B] hover:bg-[#C749B8] cursor-pointer text-white text-lg font-semibold' onClick={handleClick}>Contiune</p>
+                                        <p className=' px-2 bg-[#C44C3B] hover:bg-[#C749B8] cursor-pointer text-white text-lg font-semibold' onClick={handleClick}>Continue</p>
                                     </div>
 
                                 </div>
