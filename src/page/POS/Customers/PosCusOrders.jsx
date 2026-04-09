@@ -1,445 +1,196 @@
 import { useLocation } from 'react-router-dom';
 import PosCustomersLayout from './PosCustomersLayout';
 import { FcSearch } from 'react-icons/fc';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const PosCusOrders = () => {
     const location = useLocation();
+
     useEffect(() => {
         document.title = "POS Customers Order";
     }, [location]);
-    
+
+    // State for form fields
+    const [formData, setFormData] = useState({
+        orderNumber: '',
+        customerNumber: '',
+        shortName: '',
+        name: '',
+        address1: '',
+        address2: '',
+        city: '',
+        stateProvince: '',
+        zip: '',
+        country: 'Bangladesh',
+        salutation: '',
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        title: '',
+        email: '',
+        phone: '',
+        fax: '',
+        url: '',
+        id: '',
+        taxNumber: '',
+        controlAccount: '',
+        customerGroup: '',
+        priceGroup: '',
+        sicCode: '',
+        taxScope: '',
+        creditLimit: '',
+        creditRating: '',
+        creditTerms: '',
+        discount: '',
+        agent: '',
+        commission: '',
+        backorderType: 'None',
+        phoneMobile: '',
+        paymentInstructions: '',
+        remarks: '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    // Placeholder button handlers
+    const handleAdd = () => console.log('Add', formData);
+    const handleUpdate = () => console.log('Update', formData);
+    const handleDelete = () => console.log('Delete', formData);
+
     return (
-        <>
-            <div className="container mx-auto">
-                <div className="pt-5 text-blue-500 font-semibold pb-2">
-                    <p className='text-center'>Customer Orders</p>
+        <div className="container mx-auto">
+            <div className="pt-5 text-blue-500 font-semibold pb-2 text-center">
+                Customer Orders
+            </div>
+
+            <PosCustomersLayout />
+
+            <div className="font-semibold border border-[#C0C0C0] pb-2">
+                {/* Action Buttons */}
+                <div className="flex justify-center text-sm gap-1">
+                    <button className="bg-[#8440A9] px-2 py-1 text-white font-semibold">Show</button>
+                    <button className="bg-[#8440A9] px-2 py-1 text-white font-semibold">Clear</button>
+                    <button className="px-2 py-1 text-black bg-[#99A940] hover:bg-[#C7D276]">Top</button>
+                    <button className="px-2 py-1 text-black bg-[#99A940] hover:bg-[#C7D276]">Previous</button>
+                    <button className="px-2 py-1 text-black bg-[#99A940] hover:bg-[#C7D276]">Next</button>
+                    <button className="px-2 py-1 text-black bg-[#99A940] hover:bg-[#C7D276]">Bottom</button>
+                    <button onClick={handleAdd} className="px-2 py-1 text-white bg-[#A98540] hover:bg-[#CEB37F]">Add</button>
+                    <button onClick={handleUpdate} className="px-2 py-1 text-white bg-[#A98540] hover:bg-[#CEB37F]">Update</button>
+                    <button onClick={handleDelete} className="px-2 py-1 text-white bg-[#A98540] hover:bg-[#CEB37F]">Delete</button>
+                    <button className="px-2 py-1 text-white bg-blue-500 hover:bg-blue-300">+</button>
                 </div>
-                <PosCustomersLayout />
 
-                <div className="font-semibold border border-[#C0C0C0] pb-2">
-                    <div className="flex justify-center text-sm">
-                        <p className='bg-[#8440A9] px-1.5 text-white pb-1 font-semibold'>Show</p>
-                        <p className='bg-[#8440A9] px-1.5 text-white pb-1 font-semibold'>Clear</p>
-                        <p className='px-2 py-[1px] text-black bg-[#99A940] hover:bg-[#C7D276] cursor-pointer'>Top</p>
-                        <p className='px-2 py-[1px] text-black bg-[#99A940] hover:bg-[#C7D276] cursor-pointer'>Previous</p>
-                        <p className='px-2 py-[1px] text-black bg-[#99A940] hover:bg-[#C7D276] cursor-pointer'>Next</p>
-                        <p className='px-2 py-[1px] text-black bg-[#99A940] hover:bg-[#C7D276] cursor-pointer'>Bottom</p>
-                        <p className='px-2 py-[1px] text-white bg-[#A98540] hover:bg-[#CEB37F] cursor-pointer'>Add</p>
-                        <p className='px-2 py-[1px] text-white bg-[#A98540] hover:bg-[#CEB37F] cursor-pointer'>Update</p>
-                        <p className='px-2 py-[1px] text-white bg-[#A98540] hover:bg-[#CEB37F] cursor-pointer'>Delete</p>
-                        <p className='px-1 py-[1px] text-white bg-blue-500 hover:bg-blue-300 cursor-pointer'>+</p>
-                    </div>
-                    <div className="grid grid-cols-2 p-4">
-                        {/* Order Number */}
-                        <div className="flex gap-1 space-y-2">
+                {/* Customer Form */}
+                <div className="grid grid-cols-2 p-4 gap-y-2 gap-x-4">
+                    {/* Reusable Input Row */}
+                    {[
+                        { label: "Order Number", name: "orderNumber", type: "text", icon: <FcSearch /> },
+                        { label: "Customer Number", name: "customerNumber", type: "text" },
+                        { label: "Short Name", name: "shortName", type: "text" },
+                        { label: "Name", name: "name", type: "text" },
+                        { label: "Address 1", name: "address1", type: "text" },
+                        { label: "Address 2", name: "address2", type: "text" },
+                        { label: "City", name: "city", type: "text" },
+                        { label: "State/Province", name: "stateProvince", type: "text" },
+                        { label: "Zip/Postal Code", name: "zip", type: "text" },
+                        { label: "Email", name: "email", type: "email" },
+                        { label: "Phone", name: "phone", type: "text" },
+                        { label: "Fax", name: "fax", type: "text" },
+                        { label: "Url", name: "url", type: "url" },
+                        { label: "Id", name: "id", type: "text" },
+                        { label: "Tax Number", name: "taxNumber", type: "text" },
+                        { label: "Credit Limit", name: "creditLimit", type: "text" },
+                        { label: "Credit Terms", name: "creditTerms", type: "text" },
+                        { label: "Discount %", name: "discount", type: "text" },
+                        { label: "Agent", name: "agent", type: "text" },
+                        { label: "Commission %", name: "commission", type: "text" },
+                        { label: "Phone-Mobile", name: "phoneMobile", type: "text" },
+                    ].map(({ label, name, type, icon }) => (
+                        <div className="flex gap-1" key={name}>
                             <div className="w-1/3 pt-2">
-                                <div className="float-end text-xs text-labelBlue flex px-2">
-                                    <p>Order Number</p>
-                                    <div className="text-lg">
-                                        <FcSearch />
-                                    </div>
-                                </div>
+                                <label className="float-end text-xs text-labelBlue">{label}</label>
+                                {icon && <span className="ml-1">{icon}</span>}
                             </div>
                             <div className="w-2/3">
-                                <input type="text" className='w-20 px-1 text-sm border border-black rounded focus:bg-focusColor' value={0} autoFocus />
+                                <input
+                                    type={type}
+                                    name={name}
+                                    value={formData[name]}
+                                    onChange={handleChange}
+                                    className="w-full px-1 text-sm border border-black rounded focus:bg-focusColor"
+                                />
                             </div>
                         </div>
-                        {/* Customer Number */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Customer Number</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Short Name */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Short Name</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Name */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'> Name</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Address 1 */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Address 1</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Address 2 */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Address 2</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* City */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>City</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* State/Province */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>State/Province</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Zip/Postal Code */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Zip/Postal Code</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Country */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-customRed'>*Country</p>
-                            </div>
-                            <div className="w-2/3">
-                                <div className="flex">
-                                    <select name="unit" id="unit" className='border border-black rounded text-xs' required>
-                                        <option value="Bangladesh" selected>Bangladesh</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Saluation */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Saluation</p>
-                            </div>
-                            <div className="w-2/3">
-                                <div className="flex">
-                                    <select name="unit" id="unit" className='border border-black rounded text-xs'>
-                                        <option value="select" selected>Select</option>
-                                        <option value="Dr">Dr</option>
-                                        <option value="Mr">Mr</option>
-                                        <option value="Mrs">Mrs</option>
-                                        <option value="Ms">Ms</option>
-                                        <option value="Prof">Prof</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {/* First Name */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>First Name</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Middle Name */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Middle Name</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Last Name */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Last Name</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Title */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Title</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Email */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Email</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="email" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Phone */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Phone</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Fax */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Fax</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Url */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Url</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="url" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Id */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Id</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Tax Number */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Tax Number</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Control Account-AR */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Control Account-AR</p>
-                            </div>
-                            <div className="w-2/3">
-                                <div className="flex">
-                                    <select name="unit" id="unit" className='border border-black rounded text-xs'>
-                                        <option value="select" selected>Select</option>
-                                        <option value="10204001">10204001</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Customer Group */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Customer Group</p>
-                            </div>
-                            <div className="w-2/3">
-                                <div className="flex">
-                                    <select name="unit" id="unit" className='border border-black rounded text-xs'>
-                                        <option value="select" selected>Select</option>
-                                        <option value="Corporate">Corporate</option>
-                                        <option value="Franchise">Franchise</option>
-                                        <option value="Retail">Retail</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Price Group */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Price Group</p>
-                            </div>
-                            <div className="w-2/3">
-                                <div className="flex">
-                                    <select name="unit" id="unit" className='border border-black rounded text-xs'>
-                                        <option value="select" selected>Select</option>
-                                        <option value="Corporate Sales Price">Corporate Sales Price</option>
-                                        <option value="Cost Price">Cost Price</option>
-                                        <option value="Franchise Sales Price">Franchise Sales Price</option>
-                                        <option value="Franchise Walking Sales Price">Franchise Walking Sales Price</option>
-                                        <option value="Retails Sales Price">Retails Sales Price</option>
-                                        <option value="Trade Price">Trade Price</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {/* SIC Code */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>SIC Code</p>
-                            </div>
-                            <div className="w-2/3">
-                                <div className="flex">
-                                    <select name="unit" id="unit" className='border border-black rounded text-xs'>
-                                        <option value="select" selected>Select</option>
-                                        <option value="select1">Select1</option>
-                                        <option value="select2">Select2</option>
-                                        <option value="select3">Select3</option>
-                                        <option value="select4">Select4</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Tax Scope */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Tax Scope</p>
-                            </div>
-                            <div className="w-2/3">
-                                <div className="flex">
-                                    <select name="unit" id="unit" className='border border-black rounded text-xs'>
-                                        <option value="select" selected>Select</option>
-                                        <option value="Exempted">Exempted</option>
-                                        <option value="Mushak 11 ka-Local">Mushak 11 ka-Local</option>
-                                        <option value="Mushak 11-Imported">Mushak 11-Imported</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Customer Status */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-3">
-                                <p className='float-end text-xs text-labelBlue'>Customer Status</p>
-                            </div>
-                            <div className="w-2/3">
-                                <p>Open</p>
-                            </div>
-                        </div>
-                        {/* Credit Limit */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Credit Limit</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Credit Rating */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Credit Rating</p>
-                            </div>
-                            <div className="w-2/3">
-                                <div className="flex">
-                                    <select name="unit" id="unit" className='border border-black rounded text-xs'>
-                                        <option value="select" selected>Select</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
-                                        <option value="E">E</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Credit Terms */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Credit Terms</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Discount % */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Discount %</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Agent */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Agent</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Commission % */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Commission %</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        {/* Backorder Type */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Backorder Type</p>
-                            </div>
-                            <div className="w-2/3">
-                                <div className="flex">
-                                    <select name="unit" id="unit" className='border border-black rounded text-xs'>
-                                        <option value="Future Stock">Future Stock</option>
-                                        <option value="None" selected>None</option>
-                                        <option value="Order Now">Order Now</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        {/* Phone-Mobile */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Phone-Mobile</p>
-                            </div>
-                            <div className="w-2/3">
-                                <input type="text" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor' />
-                            </div>
-                        </div>
-                        <div className=""></div>
-                        {/* Payment Instructions */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Payment Instructions</p>
-                            </div>
-                            <div className="w-2/3">
-                                <textarea name="" id="" rows="2" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor'></textarea>
-                            </div>
-                        </div>
-                        {/* Remarks */}
-                        <div className="flex gap-1 space-y-2">
-                            <div className="w-1/3 pt-2">
-                                <p className='float-end text-xs text-labelBlue'>Remarks</p>
-                            </div>
-                            <div className="w-2/3">
-                                <textarea name="" id="" rows="2" className='w-full px-1 text-sm border border-black rounded focus:bg-focusColor'></textarea>
-                            </div>
-                        </div>
+                    ))}
 
+                    {/* Select Fields */}
+                    {[
+                        { label: "Country", name: "country", options: ["Bangladesh"] },
+                        { label: "Salutation", name: "salutation", options: ["Select", "Dr", "Mr", "Mrs", "Ms", "Prof"] },
+                        { label: "Control Account-AR", name: "controlAccount", options: ["Select", "10204001"] },
+                        { label: "Customer Group", name: "customerGroup", options: ["Select", "Corporate", "Franchise", "Retail"] },
+                        { label: "Price Group", name: "priceGroup", options: ["Select", "Corporate Sales Price", "Cost Price", "Franchise Sales Price", "Franchise Walking Sales Price", "Retails Sales Price", "Trade Price"] },
+                        { label: "SIC Code", name: "sicCode", options: ["Select", "Select1", "Select2", "Select3", "Select4"] },
+                        { label: "Tax Scope", name: "taxScope", options: ["Select", "Exempted", "Mushak 11 ka-Local", "Mushak 11-Imported"] },
+                        { label: "Credit Rating", name: "creditRating", options: ["Select", "A", "B", "C", "D", "E"] },
+                        { label: "Backorder Type", name: "backorderType", options: ["Future Stock", "None", "Order Now"] },
+                    ].map(({ label, name, options }) => (
+                        <div className="flex gap-1" key={name}>
+                            <div className="w-1/3 pt-2">
+                                <label className="float-end text-xs text-labelBlue">{label}</label>
+                            </div>
+                            <div className="w-2/3">
+                                <select
+                                    name={name}
+                                    value={formData[name]}
+                                    onChange={handleChange}
+                                    className="border border-black rounded text-xs w-full"
+                                >
+                                    {options.map(opt => (
+                                        <option key={opt} value={opt}>{opt}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                    ))}
+
+                    {/* Textareas */}
+                    {[
+                        { label: "Payment Instructions", name: "paymentInstructions" },
+                        { label: "Remarks", name: "remarks" },
+                    ].map(({ label, name }) => (
+                        <div className="flex gap-1" key={name}>
+                            <div className="w-1/3 pt-2">
+                                <label className="float-end text-xs text-labelBlue">{label}</label>
+                            </div>
+                            <div className="w-2/3">
+                                <textarea
+                                    name={name}
+                                    value={formData[name]}
+                                    onChange={handleChange}
+                                    rows={2}
+                                    className="w-full px-1 text-sm border border-black rounded focus:bg-focusColor"
+                                />
+                            </div>
+                        </div>
+                    ))}
+
+                    {/* Customer Status */}
+                    <div className="flex gap-1">
+                        <div className="w-1/3 pt-3">
+                            <label className="float-end text-xs text-labelBlue">Customer Status</label>
+                        </div>
+                        <div className="w-2/3">
+                            <p>Open</p>
+                        </div>
                     </div>
+
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
